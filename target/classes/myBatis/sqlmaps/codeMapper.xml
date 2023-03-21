@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ccm">
+
+	<select id="codeType"
+	 	resultType="com.urms.ccm.vo.CcmVo">
+		SELECT  CODE_TYPE,
+			    CODE_NM,
+			    USE_YN
+		  FROM  CODE_MAIN
+	</select>
+
+	<sql id="column">
+		SELECT  A.CODE_TYPE, 
+				A.CODE_INFO_TYPE,
+				A.CODE_INFO_NM,
+				A.USE_YN, 
+				B.CODE_NM
+		  FROM  CODE_INFO A 
+		  JOIN  CODE_MAIN B 
+			ON  A.CODE_TYPE = B.CODE_TYPE
+	</sql>
+	<!-- 같은 select 사용해서 where 조건 이용해서 mapper 줄이기 -->
+	<select id="searchList"
+        resultType="com.urms.ccm.vo.CcmVo"
+        parameterType="String">
+
+	   <include refid="column" />
+	   <if test="code_info_type != null">
+			WHERE A.CODE_INFO_TYPE LIKE CONCAT('%',#{code_info_type},'%') 
+	   </if>
+    </select>
+    
+	<select id="searchOne"
+        resultType="com.urms.ccm.vo.CcmVo"
+        parameterType="java.util.HashMap">
+        
+	    <include refid="column" />
+		<where>
+			<if test="code_info_type != null or code_type != null">
+				<choose>
+					<when test="code_type != null">
+						AND B.CODE_TYPE = #{code_type}
+					</when>
+					<when test="code_info_type != null">
+						AND A.CODE_INFO_TYPE = #{code_info_type}
+					</when>
+				</choose>
+			</if>
+		</where>
+    </select>
+    
+<!-- 	<select id="codeInfo"
+        resultType="com.urms.ccm.vo.CcmVo"
+        parameterType="String">
+        
+	     SELECT 
+			   <include refid="common_select" />
+	      FROM  CODE_INFO A,CODE_MAIN B
+	        ON  A.CODE_TYPE = B.CODE_TYPE
+	     WHERE   
+    </select> -->
+    
+	<insert id="codeAdd"
+	    parameterType="java.util.HashMap">
+	    
+	    INSERT INTO CODE_INFO 
+	    	   (CODE_INFO_TYPE, CODE_TYPE, CODE_INFO_NM, USE_YN, REG_NM, REG_DTTM)
+		VALUES (#{code_info_type}, #{code_type}, #{code_info_nm}, "Y", #{user_nm}, NOW()); 
+		
+	</insert>
+	
+	<update id="codeEdit"
+	    parameterType="java.util.HashMap">
+	    UPDATE CODE_INFO 
+	       SET USE_YN = #{use_yn}, 
+	       	   MOD_DTTM = NOW(),
+	       	   MOD_NM = #{mod_nm}
+	     WHERE CODE_INFO_TYPE = #{code_info_type}
+	</update>
+</mapper>

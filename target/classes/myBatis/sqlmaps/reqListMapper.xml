@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="rli">
+    
+    <!-- 요청일 -->
+    <sql id="req_date">
+    	<if test="req_start != null and req_end == null">
+    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') >= #{req_start}]]>
+    	</if>
+    	<if test="req_start == null and req_end != null">
+    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') <= #{req_end}]]>
+    	</if>
+    	<if test="req_start != null and req_end != null">
+			A.REQ_DTTM BETWEEN #{req_start} AND #{req_end}
+    	</if>
+    </sql>
+    
+    <!-- 작업완료일 -->
+    <sql id="res_date">
+    	<if test="res_start != null and res_end == null">
+    		<![CDATA[DATE_FORMAT(C.RESULT_REG_DTTM,'%Y-%m-%d') >= #{res_start}]]>
+    	</if>
+    	<if test="res_start == null and res_end != null">
+    		<![CDATA[DATE_FORMAT(C.RESULT_REG_DTTM,'%Y-%m-%d') <= #{res_end}]]>
+    	</if>
+    	<if test="res_start != null and res_end != null">
+			C.RESULT_REG_DTTM BETWEEN #{res_start} AND #{res_end}
+    	</if>
+    </sql>
+    
+    <!-- 진행상태 -->
+    <sql id="clear_now">
+	   	B.CLEAR_NOW LIKE CONCAT('%',#{clear_now},'%') 
+    </sql>
+    
+    <!-- 시스템명 -->
+    <sql id="sys_info_nm">
+ 		A.SYS_INFO_NM LIKE CONCAT('%',#{sys_info_nm},'%') 
+    </sql>
+    
+    <!-- 요청유형 -->
+    <sql id="req_type">
+   		A.REQ_TYPE LIKE CONCAT('%',#{req_type},'%') 
+    </sql>
+    
+    <!-- 검색어 조건 -->
+    <sql id="search_opt">
+    	<if test="search_opt == 'all'">
+    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%')
+    		OR
+    		A.REQ_CON LIKE CONCAT('%',#{text},'%')
+    		OR
+    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
+    		OR
+    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
+    	</if>
+    	<if test="search_opt == 'req_title'">
+    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%') 
+    	</if>
+    	<if test="search_opt == 'req_con'">
+    		A.REQ_CON LIKE CONCAT('%',#{text},'%') 
+    	</if>
+    	<if test="search_opt == 'req_nm'">
+    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
+    	</if>
+    	<if test="search_opt == 'user_id'">
+    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
+    	</if>
+    </sql>
+    
+    <!-- 시스템명 -->
+    <sql id="sys_nm">
+    	<if test="sys_nm != all || sys_nm != null">
+	   		AND A.SYS_NM LIKE CONCAT('%',#{sys_nm},'%') 
+    	</if>
+    </sql>
+    
+	<select id="getList"
+        resultType="com.urms.rli.vo.RliVo"
+        parameterType="java.util.HashMap">
+        
+		SELECT B.CLEAR_NOW,
+			   A.SYS_INFO_NM,
+			   A.REQ_TYPE,
+			   A.REQ_NM,
+			   B.USER_ID,
+			   A.REQ_TITLE,
+			   A.REQ_CON,
+			   A.REQ_DTTM,
+			   C.RESULT_REG_DTTM
+		  FROM SR_REQ A, SR_CLEAR B, SR_RESULT C
+		 <where>
+		        A.REQ_ID = B.REQ_ID
+		   AND  B.CLEAR_ID = C.CLEAR_ID
+			<if test="clear_now != null or clear_now != all">
+				AND <include refid="clear_now" />
+			</if>
+			<if test="sys_info_nm != null or sys_info_nm != all">
+				AND <include refid="sys_info_nm" />
+			</if>
+			<if test="req_type != null or req_type != all">
+				AND <include refid="req_type" />
+			</if>
+			<if test="search_opt != null">
+				AND <include refid="search_opt" />
+			</if>
+			<if test="req_start != null or req_end != null">
+				AND <include refid="req_date" />
+			</if>
+			<if test="res_start != null or res_end != null">
+				AND <include refid="res_date" />
+			</if>
+		</where> 
+    </select>
+	
+	<select id="getSysList"
+	    resultType="com.urms.rli.vo.RliVo"
+	    parameterType="java.util.HashMap">
+		SELECT A.SYS_NM AS sys_nm,
+			   B.SYS_INFO_NM AS sys_info_nm,
+			   A.USE_YN AS sys_use,
+			   B.USE_YN AS sys_info_use
+		  FROM SYSTEM A
+		  JOIN SYS_INFO B
+		    ON A.SYS_NM = B.SYS_NM
+		 WHERE A.USE_YN = "Y"
+		   AND B.USE_YN = "Y"
+		   <if test="prj_nm != 'all' || prj_nm != null">
+		   AND A.PRJ_NM LIKE CONCAT('%',#{prj_nm},'%') 
+		   <include refid="sys_nm" />
+		   </if>
+<!-- 	   <choose>
+	    	<when test="prj_nm != 'all' || prj_nm != null">
+	    		AND A.PRJ_NM LIKE CONCAT('%',#{prj_nm},'%') 
+	    	</when>
+	    	<when test="sys_nm != 'all' || sys_nm != null">
+	    		AND A.SYS_NM LIKE CONCAT('%',#{sys_nm},'%') 
+	    	</when>
+    	</choose> -->
+	</select>
+	
+</mapper>

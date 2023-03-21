@@ -1,0 +1,177 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Nanum+Gothic&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+@font-face {
+    font-family: 'SuseongDotum';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/SuseongDotum.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+/* gugi 폰트는 상단 로고용으로 사용함 */
+#title {
+	 text-decoration:none; color:black;
+	 display:inline-block; 
+	 width : 320px;
+}
+
+
+#gradtext{
+		padding : 10px;
+ 		margin  : 30px;
+  		font-family: 'Gugi', cursive;
+		
+        background: #55ffaa;
+        background: -webkit-linear-gradient(left, #55ff55, #29ffe8);
+        background:    -moz-linear-gradient(right, #55ff55, #55ffff);
+        background:      -o-linear-gradient(right, #55ff55, #55ffff);
+        background:         linear-gradient(to right, #55ff55, #55ffff);
+        -webkit-background-clip: text;
+                background-clip: text;
+        color: transparent;
+        font-size: 48px;
+        font-weight: bold;
+}
+
+/* 메뉴바 */
+
+#nav {
+  font-family: 'Nanum Gothic', sans-serif;
+  width: 100vw;
+  justify-content: center;
+  position: relative;
+  background: #191919;
+  display: flex;
+  border-collapse: collapse;
+/*   table-layout:fixed; */
+  border: none;
+ 
+}
+
+
+#main-menu  {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 1000px;
+}
+
+#main-menu > li {
+  float: left;
+  position: relative;
+  font-weight: bold;
+  width: 25%;
+}
+
+#main-menu > li > a:hover {
+text-decoration: underline;
+}
+
+
+#main-menu > li > a {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  text-align: center;
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  display: block;
+  padding: 14px 36px;
+  border-right: 1px solid rgba(0,0,0,0.15);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+#main-menu > li:nth-child(1) > a {
+  border-left: 1px solid rgba(0,0,0,0.20);
+
+}
+
+#sub-menu {
+  position: absolute;
+  background: #191919;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.15s ease-in;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  
+}
+
+#sub-menu > li {
+  padding: 16px 28px;
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+#sub-menu > li >  a {
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+}
+
+#main-menu > li:hover #sub-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+#sub-menu > li >  a:hover {
+ text-decoration: underline;
+}
+
+
+/* 회원정보관리, 로그아웃 박스 */
+
+#namebox {
+	 font-family: 'Nanum Gothic', sans-serif;
+	 display: inline-block;
+	 float : right;
+	 font-weight : bold;
+	 border-radius: 30px;
+	 padding : 30px;
+	 margin : 20px;
+	 width  : 250px;
+	 height : 50px;
+	 background  : rgba(248,248,248);
+	 text-align : center;
+	 font-size : 15px;
+}
+
+#namebox > a {
+ text-decoration: none;
+ color:gray;
+}
+
+#namebox > a:hover {
+	color : white;
+	background-color:black;
+}
+
+#namebox > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+	
+}
+
+/* footer */
+footer {
+	padding : 2em;
+	text-align : center;
+	color : gray;
+	font-size: 12px;
+}
+
+/* 메뉴바 꽉차게, 양옆 공백 방지*/
+  body {
+  	 margin : 0;
+     padding: 0;
+  }
+
+.menutitle {
+	
+	pointer-events: none; 
+}
+
+
+/*----------------------------------------------------------------------*/
+

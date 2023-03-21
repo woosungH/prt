@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="req">
+
+	<select id="reqList"
+	resultType="com.urms.req.vo.ReqVo"
+	parameterType="hashmap">
+	
+	SELECT A.REQ_ID,
+	       A.REQ_TITLE,
+	       A.REQ_CON,
+		   A.SYS_INFO_NM,
+		   A.REQ_TYPE,
+		   A.REQ_DTTM,
+		   A.REQ_END_DTTM,
+		   B.CLEAR_ST_DTTM,
+		   B.CLEAR_DUE_DTTM
+    FROM   SR_REQ A,SR_CLEAR B
+    WHERE  A.REQ_ID = B.REQ_ID
+    AND	   B.CLEAR_CON IS NOT NULL
+    AND	   B.USER_ID = #{user}
+    
+	</select>
+	<select id="reqList2"
+	resultType="com.urms.req.vo.ReqVo"
+	parameterType="hashmap">
+	
+	SELECT A.REQ_ID,
+	       A.REQ_TITLE,
+	       A.REQ_CON,
+		   A.SYS_INFO_NM,
+		   A.REQ_TYPE,
+		   A.REQ_DTTM,
+		   A.REQ_END_DTTM,
+		   B.CLEAR_ST_DTTM,
+		   B.CLEAR_DUE_DTTM
+    FROM   SR_REQ A,SR_CLEAR B
+    WHERE  A.REQ_ID = B.REQ_ID
+    AND	   B.CLEAR_CON IS NULL
+    AND	   B.USER_ID = #{user}
+	</select>
+
+
+</mapper>
