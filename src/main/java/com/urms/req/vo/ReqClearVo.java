@@ -12,8 +12,8 @@ public class ReqClearVo {
 	private String mod_nm; //수정자
 	private String mod_dttm; //수정일시
 	private String clear_st_dttm; //처리시작
-	private String clear_due_dttm; //처리시작
-	private String clear_end_dttm; //처리시작
+	private String clear_due_dttm; //완료예정일
+	private String clear_end_dttm; //완료일
 	
 //constructor
 	public ReqClearVo() {}

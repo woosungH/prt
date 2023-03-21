@@ -32,7 +32,6 @@
 		padding : 10px;
  }
 </style>
-<!-- <svg width="700" height="320"></svg> -->
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
 
@@ -42,6 +41,19 @@
   <body>
   <%@ include file="/WEB-INF/include/menus.jsp" %>
    <div id="main" style="padding: 100px;">
+   		<table id="reqNow">
+   		<h2>전체 요청 처리 현황</h2><a href="/report">보고서<</a>
+   		<tr>
+   			<th>전체</th>
+   			<th>미완료</th>
+   			<th>완료</th>
+   		</tr>
+   		<tr>
+   			<td>${ count }</td>
+   			<td>${ req_no_count }</td>
+   			<td>${ req_yes_count }</td>
+   		</tr>
+   		</table>
 		<table id="req">
 			<h2>처리 진행중인 작업 현황</h2>
 			<tr>

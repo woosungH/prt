@@ -5,7 +5,6 @@
 	<select id="reqList"
 	resultType="com.urms.req.vo.ReqVo"
 	parameterType="hashmap">
-	
 	SELECT A.REQ_ID,
 	       A.REQ_TITLE,
 	       A.REQ_CON,
@@ -18,13 +17,13 @@
     FROM   SR_REQ A,SR_CLEAR B
     WHERE  A.REQ_ID = B.REQ_ID
     AND	   B.CLEAR_CON IS NOT NULL
+    AND	   B.CLEAR_NOW != "CLEAR"
     AND	   B.USER_ID = #{user}
-    
 	</select>
+	
 	<select id="reqList2"
 	resultType="com.urms.req.vo.ReqVo"
 	parameterType="hashmap">
-	
 	SELECT A.REQ_ID,
 	       A.REQ_TITLE,
 	       A.REQ_CON,
@@ -39,6 +38,82 @@
     AND	   B.CLEAR_CON IS NULL
     AND	   B.USER_ID = #{user}
 	</select>
+	
+	<select id="req_report_list"
+	resultType="com.urms.req.vo.ReqVo"
+	parameterType="hashmap">
+	SELECT A.REQ_ID,
+		   A.REQ_TITLE,
+		   A.SYS_INFO_NM,
+		   A.REQ_TYPE,
+		   B.ORG_CODE,
+		   A.REQ_NM,
+		   A.REQ_CON,
+		   C.CLEAR_CON,
+		   D.RESULT_REG_DTTM,
+		   A.REQ_DTTM,
+		   A.REQ_END_DTTM
+	FROM SR_REQ A,REQ_INFO B,SR_CLEAR C,SR_RESULT D
+	WHERE A.REQ_NO = B.REQ_NO
+	AND   A.REQ_ID = C.REQ_ID
+	AND   C.CLEAR_ID = D.CLEAR_ID
+	</select>
+	
+	<select id="req_report_search"
+	resultType="com.urms.req.vo.ReqVo"
+	parameterType="hashmap">
+	SELECT A.REQ_ID,
+		   B.ORG_CODE,
+		   A.REQ_TITLE,
+		   A.SYS_INFO_NM,
+		   A.REQ_TYPE,
+		   A.REQ_NM,
+		   A.REQ_CON,
+		   C.CLEAR_CON,
+		   A.REQ_DTTM,
+		   A.REQ_END_DTTM,
+		   D.RESULT_REG_DTTM
+	FROM SR_REQ A,REQ_INFO B,SR_CLEAR C,SR_RESULT D
+	WHERE A.REQ_NO = B.REQ_NO
+	AND   A.REQ_ID = C.REQ_ID
+	AND   C.CLEAR_ID = D.CLEAR_ID
+	AND   A.REQ_DTTM LIKE CONCAT('%',#{searchYtype},#{searchMtype},'%')
+	</select>
+	
+	<select id="excelDown"
+	resultType="com.urms.req.vo.ReqVo"
+	parameterType="hashmap">
+	SELECT A.REQ_TITLE,
+	       A.SYS_INFO_NM,
+	       A.REQ_TYPE,
+	       A.REQ_DTTM,
+	       A.REQ_END_DTTM,
+	       B.RESULT_REG_DTTM
+	FROM SR_REQ A,SR_RESULT B,SR_CLEAR C
+	WHERE A.REQ_ID = C.REQ_ID
+	AND   C.CLEAR_ID = B.CLEAR_ID
+	AND   A.REQ_DTTM LIKE CONCAT('%',#{searchYtype},#{searchMtype},'%')
 
+	</select>
+	
+	<select id="reqCount"
+	resultType="Integer">
+	SELECT COUNT(*)
+	FROM SR_REQ
+	</select>
+	
+	<select id="req_no_count"
+	resultType="Integer">
+	SELECT COUNT(*)
+	FROM SR_CLEAR
+	WHERE CLEAR_NOW != "CLEAR"
+	</select>
+	
+	<select id="req_yes_count"
+	resultType="Integer">
+	SELECT COUNT(*)
+	FROM SR_CLEAR
+	WHERE CLEAR_NOW = "CLEAR"
+	</select>
 
 </mapper>
