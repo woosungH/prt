@@ -8,81 +8,74 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="css/home.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<style>
-body { font-family: 'Nanum Gothic', sans-serif;}
- table {
-		margin : 0 auto;
-		border-collapse : collapse;
-		width : 60%;
-		font-size : 16px;
- }
- tr { border : 1px solid silver;	}
- th { background : #F6F6F6 ; }
- tr, td, th {
-		padding : 10px;
-		text-align : center;
-}
-</style>
-</head>
-<body>
-	<%@ include file="/WEB-INF/include/menus.jsp" %>
-	<div id="main">
-		<h2>전체 요청 처리 현황</h2>
-		<table id="reqNow">
-			<a href="/report">보고서<</a>
+  </head>
+  <body>
+  <%@ include file="/WEB-INF/include/menus.jsp" %>
+   <div id="main">
+   		<h1 style="display: block;">전체 요청 처리 현황<a href="/report" class="btn btn-outline-info">보고서</a></h1>
+   		<table class="table" style="width: 33% ;float:left;">
+   		<tr>
+   			<th>전체</th>
+   		</tr>
+   		<tr>
+   			<td>${ count }</td>
+   		</tr>
+   		</table>
+   		<table class="table" style="width: 33%;float:left;">
+   		<tr>
+   			<th>미완료</th>
+   		</tr>
+   		<tr>
+   			<td>${ req_no_count }</td>
+   		</tr>
+   		</table>
+   		<table class="table" style="width: 33%;float:left;">
+   		<tr>
+   			<th>완료</th>
+   		</tr>
+   		<tr>
+   			<td>${ req_yes_count }</td>
+   		</tr>
+   		</table>
+		<table class="table">
+			<h1>처리 진행중인 작업 현황</h1>
 			<tr>
-				<th>전체</th>
-				<th>미완료</th>
-				<th>완료</th>
-			</tr>
-			<tr>
-				<td>${ count }</td>
-				<td>${ req_no_count }</td>
-				<td>${ req_yes_count }</td>
-			</tr>
-		</table>
-		<h2>처리 진행중인 작업 현황</h2>
-		<table id="req">
-			<tr>
-				<th>제목</th>
-				<th>내용</th>
-				<th>대상시스템</th>
-				<th>요청유형</th>
-				<th>작업시작일시</th>
-				<th>작업완료예정일</th>
+				<th class="sys_info_nm">대상시스템</th>
+				<th class="req_type">요청유형</th>
+				<th class="req_title">제목</th>
+				<th class="clear_st_dttm">작업시작일</th>
+				<th class="clear_due_dttm">작업완료예정일</th>
 			</tr>		
-		<c:forEach  var="req" items="${ vo }">
+			<c:forEach  var="req" items="${ vo }">
 			<tr>
-				<td>${ req.req_title }</td>
-				<td>${ req.req_con }</td>
-				<td>${ req.sys_info_nm }</td>
-				<td>${ req.req_type }</td>
-				<td>${ req.clear_st_dttm }</td>
-				<td>${ req.clear_due_dttm }</td>
+				<td class="sys_info_nm">${ req.sys_info_nm }</td>
+				<td class="req_type">${ req.req_type }</td>
+				<td class="req_title" id="req_title">${ req.req_title }</td>
+				<td class="clear_st_dttm">${ req.clear_st_dttm }</td>
+				<td class="clear_due_dttm">${ req.clear_due_dttm }</td>
 			</tr>
-		</c:forEach>
+			</c:forEach>
 		</table>
-		<h2>조치 미등록 현황</h2>
-		<table id="reqNo">
-			<tr>
-				<th>제목</th>
-				<th>내용</th>
-				<th>대상시스템</th>
-				<th>요청유형</th>
-				<th>접수일</th>
-				<th>처리기한</th>
+		<table class="table">
+		<h1>조치 미등록 현황</h1>
+		<tr>
+				<th class="sys_info_nm">대상시스템</th>
+				<th class="req_type">요청유형</th>
+				<th class="req_title">제목</th>
+				<th class="clear_st_dttm">접수일</th>
+				<th class="clear_due_dttm">처리기한</th>
 			</tr>		
 		<c:forEach  var="req2" items="${ vo2 }">
 			<tr>
-				<td>${ req2.req_title }</td>
-				<td>${ req2.req_con }</td>
-				<td>${ req2.sys_info_nm }</td>
-				<td>${ req2.req_type }</td>
-				<td>${ req2.req_dttm }</td>
-				<td>${ req2.req_end_dttm }</td>
+				<td class="sys_info_nm">${ req2.sys_info_nm }</td>
+				<td class="req_type">${ req2.req_type }</td>
+				<td class="req_title" id="req_title">${ req2.req_title }</td>
+				<td class="clear_st_dttm">${ req2.req_dttm }</td>
+				<td class="clear_due_dttm">${ req2.req_end_dttm }</td>
 			</tr>
 		</c:forEach>
 		</table>

@@ -1,111 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
-<link rel="stylesheet" href="/css/common.css" />
-<link rel="stylesheet" href="/js/SlickGrid/slick.grid.css" type="text/css"/>
-<link rel="stylesheet" href="/js/SlickGrid/css/smoothness/jquery-ui.css" type="text/css"/>
-<script src="/js/SlickGrid/lib/firebugx.js"></script>
-<script src="/js/SlickGrid/lib/jquery-3.1.0.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/sortablejs/Sortable.min.js"></script>
-<script src="/js/SlickGrid/slick.core.js"></script>
-<script src="/js/SlickGrid/slick.dataview.js"></script>
-<script src="/js/SlickGrid/slick.interactions.js"></script>
-<script src="/js/SlickGrid/slick.grid.js"></script>
-<script src="/js/SlickGrid/plugins/slick.state.js"></script>
-<script src="/js/SlickGrid/controls/slick.columnpicker.js"></script>
-<script>
-$(document).ready(function () {
-	// 컬럼
-	var columns = [
-	    {id: "no", name: "No", field: "no", sortable: true},
-	    {id: "sys_info_nm", name: "시스템", field: "sys_info_nm", width:300, sortable: true},
-	    {id: "req_type", name: "요청자유형", field: "req_type", width:150, sortable: false},
-	    {id: "req_dttm", name: "요청일", field: "req_dttm", width:150, sortable: false},
-	    {id: "req_end_dttm", name: "완료희망일", field: "req_end_dttm", width:150, sortable: false},
-	    {id: "result_reg_dttm", name: "조치완료일", field: "result_reg_dttm", width:150, sortable: false},
-	    {id: "timely", name: "적시요청결과", field: "timely", width:150, sortable: false}
-	];
-	
-	// 옵션
-	var options = {
-		enableColumnReorder: false,
-		multiColumnSort: true
-	};
-	
-	// 데이터(json)
-	var data = new Array();
-	<c:forEach items="${report}" var="item">
-	<c:set var="i" value="${i+1 }"></c:set>
-	data.push("${i}");
-	data.push("${item.sys_info_nm}");
-	data.push("${item.req_type}");
-	data.push("${item.req_title}");
-	data.push("${item.req_dttm}");
-	data.push("${item.req_end_dttm}");
-	data.push("${item.result_reg_dttm}");
-	data.push("x");
-	</c:forEach>
-	// SlickGrid 생성
-	var grid = new Slick.Grid("#myGrid", data, columns, options);
-	
-	// 정렬
-	grid.onSort.subscribe(function (e, args) {
-		
-		var cols = args.sortCols;
-
-		data.sort(function (dataRow1, dataRow2) {
-			for (var i = 0, l = cols.length; i < l; i++) {
-				var field = cols[i].sortCol.field;
-				var sign = cols[i].sortAsc ? 1 : -1;
-				var value1 = dataRow1[field], value2 = dataRow2[field];
-				var result = (value1 == value2 ? 0 : (value1 > value2 ? 1 : -1)) * sign;
-				if (result != 0) {
-					return result;
-				}
-			}
-			return 0;
-		});
-		grid.invalidate();
-		grid.render();
-	});
-});
-
-if($('#mon').val() == '-01'){
-	$('#searchMtype').val('-01').prop('selected',true);
-}else if($('#mon').val() == '-02'){
-	$('#searchMtype').val('-02').prop('selected',true);
-}else if($('#mon').val() == '-03'){
-	$('#searchMtype').val('-03').prop('selected',true);
-}else if($('#mon').val() == '-04'){
-	$('#searchMtype').val('-04').prop('selected',true);
-}else if($('#mon').val() == '-05'){
-	$('#searchMtype').val('-05').prop('selected',true);
-}else if($('#mon').val() == '-06'){
-	$('#searchMtype').val('-06').prop('selected',true);
-}else if($('#mon').val() == '-07'){
-	$('#searchMtype').val('-07').prop('selected',true);
-}else if($('#mon').val() == '-08'){
-	$('#searchMtype').val('-08').prop('selected',true);
-}else if($('#mon').val() == '-09'){
-	$('#searchMtype').val('-09').prop('selected',true);
-}else if($('#mon').val() == '-10'){
-	$('#searchMtype').val('-10').prop('selected',true);
-}else if($('#mon').val() == '-11'){
-	$('#searchMtype').val('-11').prop('selected',true);
-}else if($('#mon').val() == '-12'){
-	$('#searchMtype').val('-12').prop('selected',true);
-}
-
-</script>
+<!-- Template Main CSS File -->
+<link rel="stylesheet"href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet" href="/css/report.css" />
+<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
 <style>
- body { font-family: 'Nanum Gothic', sans-serif;}
- h2 {text-align : center; padding : 50px 0 0 0;}
  table {
 		margin : 0 auto;
 		border-collapse : collapse;
@@ -118,92 +24,6 @@ if($('#mon').val() == '-01'){
 		padding : 10px;
 		text-align : center;
 }
- caption {
-		font-weight : bold;
-		text-align : right;
-		padding : 10px;
- }
- #board td:nth-of-type(1) {width : 130px; text-align: center;}
- #board td:nth-of-type(2) {width : 130px; }
- #board td:nth-of-type(3) {width : 130px; text-align: center;}
- #board td:nth-of-type(4) {width : 160px; text-align: center;}
- #board td:nth-of-type(5) {width : 130px; text-align: center;}
-
- #Atitle { text-decoration:none; color:black; }
- #Atitle:hover {color:skyblue;}
- #write {
-		text-decoration:none; color:black;
-	}
- #write {
-    font-family: Arial;
-    text-decoration-line: none;
-    display:inline-block;
-    width: 70px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin: 0 auto;
-	padding : 4px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-
-    border-radius: 50px;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-	background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
-	box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
-	}
- #write:hover {
-    background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-  }
- #write:focus {
-    outline: none;
- } 
- #searchBox {
-	width : 19%;
-	margin : 0 auto; 
-	padding : 10px 0 30px 1000px ;
- }
- input[type=submit] {-webkit-appearance:none;
-	width: 70px;
-	font-size: 17px;
-	font-weight: 600;
-	color: #fff;
-	cursor: pointer;
-	margin: 5px;
-	height: 30px;
-	text-align:center;
-	border: none;
-	background-size: 300% 100%;
-	border-radius: 50px;
-	moz-transition: all .4s ease-in-out;
-	-o-transition: all .4s ease-in-out;
-	-webkit-transition: all .4s ease-in-out;
-	transition: all .4s ease-in-out;
-	background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
-    box-shadow: 0 4px 15px 0 rgba(45, 54, 65, 0.75);
-  }   
-  input[type=submit]:hover {
-    background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-  }
-  input[type=submit]:focus {
-    outline: none;
-  }
-  #popup {
-   text-align: center;
-  }
   
   /* sort */
 [data-sort]{
@@ -219,7 +39,148 @@ if($('#mon').val() == '-01'){
     font-size:.5em;color:yellow;}
 </style>
 </head>
-<body>
-	<div id="myGrid" style="width:600px;height:500px;"></div>
+
+<body>	
+		<%@ include file="/WEB-INF/include/menus.jsp" %>
+	<div id="main">
+		<h1>요청처리 보고서</h1>
+		<form name="form1" action="/poiExcel?searchYtype=${map.searchYtype}&&searchMtype=${map.searchMtype}" method="post">
+			<div id="down"><input type="submit" class="btn btn-outline-success" value="다운로드"/></div>
+		</form>
+		<form action="/report/search" method="GET">
+		<div id="searchBox">	
+			<select name="searchYtype" id="searchYtype">
+			<option value="">==선택==</option>
+			<option value="2023">2023년</option>
+			</select>
+			<input type="hidden" id ="year" value="${searchYtype }"/>
+			<select name="searchMtype" id="searchMtype">
+			<option value="">==선택==</option>
+			<option value="-01">1월</option>
+			<option value="-02">2월</option>
+			<option value="-03">3월</option>
+			<option value="-04">4월</option>
+			<option value="-05">5월</option>
+			<option value="-06">6월</option>
+			<option value="-07">7월</option>
+			<option value="-08">8월</option>
+			<option value="-09">9월</option>
+			<option value="-10">10월</option>
+			<option value="-11">11월</option>
+			<option value="-12">12월</option>
+			</select>
+			<input type="hidden" id ="mon" value="${searchMtype }"/>
+			<div id="search"><input type="submit" class="btn btn-outline-secondary" value="조회"/></div>
+		</div>
+		</form>
+		<table id="board1" class="table">
+			<tr>
+				<th class="sortTable_8">순번</th>
+				<th class="sortTable_0">시스템</th>
+				<th class="sortTable_1">요청유형</th>
+				<th class="sortTable_2">제목</th>
+				<th class="sortTable_3"style="cursor: pointer;"onclick="sortTable(3)">요청일↕</th>
+				<th class="sortTable_4"style="cursor: pointer;"onclick="sortTable(4)">완료희망일↕</th>
+				<th class="sortTable_5"style="cursor: pointer;"onclick="sortTable(5)">조치완료일↕</th>
+				<th class="sortTable_6">적시요청결과</th>
+			</tr>
+		<c:forEach var="req" items="${ report }">
+			<c:set var="i" value="${i+1 }"></c:set>
+			<tr>
+				<td>${ i }</td>
+				<td class="td1">${ req.sys_info_nm }</td>
+				<td class="td1">${ req.req_type }</td>
+				<td class="td1" id="td1">${ req.req_title }</td>
+				<td class="td1">${ req.req_dttm }</td>
+				<td class="td1">${ req.req_end_dttm }</td>
+				<td class="td1">${ req.result_reg_dttm }</td>
+				<c:choose>
+				<c:when test="${ req.req_end_dttm le req.result_reg_dttm}">
+				<td>o</td>
+				</c:when>
+				<c:otherwise>
+				<td>x</td>
+				</c:otherwise>
+				</c:choose>
+			</tr>
+		</c:forEach>				
+		</table>
+	</div>
+<script>
+function sortTable(n){
+	var table, rows, switching, o, x, y, shouldSwitch, dir, switchcount = 0;
+		table = document.getElementById("board1");
+		switching = true;
+		dir = "asc";
+    
+   while (switching) {
+	   switching = false;
+/* 	   rows = table.getElementTagName("tr"); */
+	   rows = $('#board1 tr');
+   
+   for(o =1; o < (rows.length -1); o++){
+	   shouldSwitch = false;
+	   x = rows[o].getElementsByClassName("td1")[n];
+	   y = rows[o + 1].getElementsByClassName("td1")[n];
+	   
+	   if(dir == "asc"){
+		   if(x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()){
+			   shouldSwitch = true;
+			   break;
+		   }
+	   } else if (dir == "desc"){
+		   if(x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()){
+		   shouldSwitch = true;
+		   break;
+		   }
+	   }
+   	}
+   
+   if(shouldSwitch) {
+	   rows[o].parentNode.insertBefore(rows[o+1], rows[o]);
+	   switching = true;
+	   switchcount ++;
+   }else{
+	   if(switchcount ==0 && dir =="asc"){
+		   dir = "desc";
+		   switching = true;
+  		 }
+	  }
+   }
+}
+$(document).ready(function () {
+	
+	if($('#year').val() == '2023'){
+		$('#searchYtype').val('2023').prop('selected',true);
+	}
+	
+	if($('#mon').val() == '-01'){
+		$('#searchMtype').val('-01').prop('selected',true);
+	}else if($('#mon').val() == '-02'){
+		$('#searchMtype').val('-02').prop('selected',true);
+	}else if($('#mon').val() == '-03'){
+		$('#searchMtype').val('-03').prop('selected',true);
+	}else if($('#mon').val() == '-04'){
+		$('#searchMtype').val('-04').prop('selected',true);
+	}else if($('#mon').val() == '-05'){
+		$('#searchMtype').val('-05').prop('selected',true);
+	}else if($('#mon').val() == '-06'){
+		$('#searchMtype').val('-06').prop('selected',true);
+	}else if($('#mon').val() == '-07'){
+		$('#searchMtype').val('-07').prop('selected',true);
+	}else if($('#mon').val() == '-08'){
+		$('#searchMtype').val('-08').prop('selected',true);
+	}else if($('#mon').val() == '-09'){
+		$('#searchMtype').val('-09').prop('selected',true);
+	}else if($('#mon').val() == '-10'){
+		$('#searchMtype').val('-10').prop('selected',true);
+	}else if($('#mon').val() == '-11'){
+		$('#searchMtype').val('-11').prop('selected',true);
+	}else if($('#mon').val() == '-12'){
+		$('#searchMtype').val('-12').prop('selected',true);
+	}
+
+});
+</script>
 </body>
 </html>

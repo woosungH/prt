@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+ table {
+		margin : 0 auto;
+		border-collapse : collapse;
+		width : 60%;
+		font-size : 16px;
+ }
+ tr { border : 1px solid #e4e8eb;	}
+ tr, td, th {
+		padding : 10px;
+		text-align : center;
+}
+ #req_title{
+ text-align: left;
+ }
+ .sys_info_nm,.req_type,.clear_st_dttm,
+ .clear_due_dttm{width: 13%;}
+ .req_title{width: 40%;}

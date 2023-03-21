@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+ #main{
+ width: 1200px;
+ margin : 0 auto;
+ padding-top: 50px;
+ }
+#searchBox{
+	text-align: center;
+	padding-left: 800px;
+	display : flex;
+	justify-content : space-between;
+}
+.sortTable_7,.sortTable_8{width:8%;}
+
+.sortTable_0{width: 9%;}
+
+.sortTable_6{width: 13%;}
+
+.sortTable_3{width: 10%;}
+
+.sortTable_4{width: 12%;}
+
+.sortTable_5{width: 12%;}
+
+.sortTable_1{width: 10%;}
+
+.sortTable_2{width:15%;}
+
+#td1{width: 20%; white-space:nowrap;}
