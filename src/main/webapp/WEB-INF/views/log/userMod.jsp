@@ -6,122 +6,127 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico" />
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Gugi&family=Nanum+Gothic&display=swap');
-
-body {
-  	font-family: 'Nanum Gothic', sans-serif;
-    height: 100vh;
-    background: url(/img/back.png) no-repeat center;
-    background-size: cover;
- }
-h1 { padding : 180px 0 0 0;
- 	text-align : center;
- 	font-size  : 50px;
- 	color : #444444;}
- 	
-h3 { padding : 0px;
- 	text-align : center;
- 	font-size  : 30px;
- 	color : gray;}
-div{
-       text-align: center;
-       margin:0 auto;
-   }
-   
-#joinform {
- margin : 0 auto;
- text-align : left;
-}   
-
-td { padding : 10px; font-weight : bold;}
-
-#gradtext{
-		
-  		font-family: 'Gugi', cursive;
-        background: #55ffaa;
-        background: -webkit-linear-gradient(left, #55ff55, #29ffe8);
-        background:    -moz-linear-gradient(right, #55ff55, #55ffff);
-        background:      -o-linear-gradient(right, #55ff55, #55ffff);
-        background:         linear-gradient(to right, #55ff55, #55ffff);
-        -webkit-background-clip: text;
-                background-clip: text;
-        color: transparent;
-        font-size: 48px;
-        font-weight: bold;
-}
-input[type=submit] {-webkit-appearance:none;
-    width: 150px;
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    cursor: pointer;
-    margin: 20px;
-    height: 50px;
-    text-align:center;
-    border: none;
-    background-size: 300% 100%;
-    border-radius: 50px;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-    background-image: linear-gradient(to right, #25aae1, #40e495, #30dd8a, #2bb673);
-    box-shadow: 0 4px 15px 0 rgba(49, 196, 190, 0.75);
-}   
-   
-input[type=submit]:hover {
-    background-position: 100% 0;
-    moz-transition: all .4s ease-in-out;
-    -o-transition: all .4s ease-in-out;
-    -webkit-transition: all .4s ease-in-out;
-    transition: all .4s ease-in-out;
-}
-
-input[type=submit]:focus {
-    outline: none;
-}
-</style>
-<script>
-	$(function(){
-	$("#btnLogin").click(function(){
-	 userid=$("#userid").val();
-	 var passwd=$("#passwd").val(); if(userid == ""){
-	  alert("아이디를 입력하세요");
-	  $("#userid").focus(); //입력포커스 이동
-	
-	  return; //함수 종료
-	}
-	if(passwd==""){
-	 alert("비밀번호를 입력하세요"); 
-	 $("#passwd").focus();
-	  return;
-	}
-	//폼 내부의 데이터를 전송할 주소
-	 document.form1.action= "${path}/user/loginProcess";
-	 document.form1.submit(); //제출
-	 });
-	});
-</script>
+	<link rel="stylesheet"href="css/bootstrap.min.css" />
+	<link rel="stylesheet" href="css/common.css" />
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 </head>
+<style>
+	#btn_group {
+		display : flex;
+		justify-content : space-between;
+	}
+</style>
 <body>
 	<div id="main">
-		
-	<h1 id="gradtext">URMS</h1>
-	<h3>URMS 시스템</h3>
-	<form action="/userMod" method="POST">
-	  <table id="modform">
-	  <tr>
-        <td>안전한 보안 관리를 위하여 패스워드를 다시 설정해주세요</td>
-      </tr>
-       <tr>
-		<td class="td1">패스워드</td>
-		<td><input type="password" id="user_pw" name="user_pw" /></td>
-	   </tr>
-		</table>
-		<input type="submit" value="수정" />
-   	  </form>
+  	  <div class="container">
+
+      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+
+              <div class="d-flex justify-content-center py-4">
+        		<a href="/" id="title" class="logo d-flex align-items-center w-auto">
+			  		<span id="gradtext">URMS</span>
+			  	</a>
+              </div><!-- End Logo -->
+
+              <div class="card mb-3">
+
+                <div class="card-body">
+
+                  <div class="pt-4 pb-2">
+                    <h5 class="card-title text-center pb-0 fs-4">회원정보 수정</h5>
+                    <p class="text-center small">안전한 보안 관리를 위하여 패스워드를 다시 설정해주세요</p>
+                  </div>
+
+                  <form method="POST" name="userMod_form" class="row g-3 needs-validation">
+                    <div class="col-12">
+                      <label for="yourUsername" class="form-label">Username</label>
+                      <div class="input-group has-validation">
+                        <input type="text" class="form-control" id="yourUsername" value="${sessionScope.login.user_id}" readonly>
+                      </div>
+                    </div>
+
+                    <div class="col-12">
+                      <label for="yourPassword" class="form-label">Password</label>
+                      <input type="password" name="user_pw" class="form-control" id="pwd" onchange="check_pw()" required>
+                    </div>
+                    <div class="col-12">
+                      <label for="ConfirmPassword" class="form-label">Confirm Password</label>
+                      <input type="password" name="confirm_pw" class="form-control" id="check_pwd" onchange="check_pw()" required>
+                      <span id="check"></span>
+                    </div>
+
+                    <div class="col-12" id="btn_group">
+                      <button class="btn btn-dark w-30" type="reset">초기화</button>
+                      <button class="btn btn-primary w-50" type="button" onclick="mod()">수정</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
+    </div>
+    <script>
+	    function check_pw(){
+	        var pw = document.getElementById('pwd').value;
+	        var SC = ["!","@","#","$","%"];
+	        var check_SC = 0;
+	
+	        if(pw.length < 6 || pw.length>16){
+	            window.alert('6자 이상, 16자 이하를 입력해야합니다.');
+	            document.getElementById('pwd').value='';
+	        }
+	        for(var i=0;i<SC.length;i++){
+	            if(pw.indexOf(SC[i]) != -1){
+	                check_SC = 1;
+	            }
+	        }
+	        if(check_SC == 0){
+	            window.alert('특수문자(!,@,#,$,%)가 존재하지 않습니다.')
+	            document.getElementById('pwd').value='';
+	        }
+	        if(document.getElementById('pwd').value !='' && document.getElementById('check_pwd').value!=''){
+	            if(document.getElementById('pwd').value==document.getElementById('check_pwd').value){
+	                document.getElementById('check').innerHTML='비밀번호가 일치합니다.'
+	                document.getElementById('check').style.color='blue';
+	            }
+	            else{
+	                document.getElementById('check').innerHTML='비밀번호가 일치하지 않습니다.';
+	                document.getElementById('check').style.color='red';
+	            }
+	        }
+	    }
+	    function mod() {
+			var form = document.userMod_form;
+			var pwd = document.getElementById('pwd').value;
+			var check_pwd = document.getElementById('check_pwd').value;
+			
+			if (pwd == "") {
+		        alert("패스워드를 입력 해야 합니다!");
+		        form.user_pw.focus();
+		        return;
+		    }
+			if (check_pwd == "") {
+		        alert("패스워드확인을 입력 해야 합니다!");
+		        form.confirm_pw.focus();
+		        return;
+		    }
+			
+			if(pwd != check_pwd) {
+				/* form 태그 안에 type이 없는 button태그가 한개만 존재한다면 자동으로 form이 제출되기 때문에 type=button을 설정해야된다. */
+				alert("비밀번호가 일치하지 않습니다.\n다시 한번 확인해 주십시오.");
+				return;
+			} else {
+				form.action ="/userMod";
+				form.submit();
+			}
+	    }
+    </script>
 </body>
 </html>

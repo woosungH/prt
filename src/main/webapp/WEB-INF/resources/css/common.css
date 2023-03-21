@@ -8,7 +8,13 @@
     font-weight: normal;
     font-style: normal;
 }
-
+/* common */
+a,a:hover { text-decoration: none; }
+ul { list-style-type : none; }
+h1 {
+	display : inline-block;
+	margin-bottom : 20px;
+}
 
 /* gugi 폰트는 상단 로고용으로 사용함 */
 #title {
@@ -19,6 +25,7 @@
 
 
 #gradtext{
+		display : inline-block; 
 		padding : 10px;
  		margin  : 30px;
   		font-family: 'Gugi', cursive;
@@ -35,27 +42,27 @@
         font-weight: bold;
 }
 
+
+#main {
+	width: 1200px;
+	margin: 0 auto;
+}
+
 /* 메뉴바 */
 
 #nav {
-  font-family: 'Nanum Gothic', sans-serif;
-  width: 100vw;
+  width: 100%;
   justify-content: center;
   position: relative;
-  background: #191919;
   display: flex;
   border-collapse: collapse;
-/*   table-layout:fixed; */
-  border: none;
- 
+  border: 1px solid #e4e8eb;
+  height: 60px;
+  margin-bottom : 40px;
 }
 
-
 #main-menu  {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  width: 1000px;
+  width: 1200px;
 }
 
 #main-menu > li {
@@ -63,28 +70,25 @@
   position: relative;
   font-weight: bold;
   width: 25%;
+
+}
+
+#main-menu > li > a {
+  font-size: 1.1rem;
+  text-align: center;
+  line-height : 60px;
+  letter-spacing: 0.05em;
+  display: block;
+  border-right: 1px solid #e4e8eb;
+  color : #000;
 }
 
 #main-menu > li > a:hover {
-text-decoration: underline;
+	color: #007bff;
 }
 
-
-#main-menu > li > a {
-  font-size: 1rem;
-  color: rgba(255,255,255,0.85);
-  text-align: center;
-  text-decoration: none;
-  letter-spacing: 0.05em;
-  display: block;
-  padding: 14px 36px;
-  border-right: 1px solid rgba(0,0,0,0.15);
-  text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
-}
-
-#main-menu > li:nth-child(1) > a {
-  border-left: 1px solid rgba(0,0,0,0.20);
-
+#main-menu > li:nth-child(4) > a {
+  border-right: 0;
 }
 
 #sub-menu {

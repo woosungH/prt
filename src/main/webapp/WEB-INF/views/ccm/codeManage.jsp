@@ -7,29 +7,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- Template Main CSS File -->
-<link rel="stylesheet"href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="/css/common.css" />
-<link rel="stylesheet" href="/css/codeManage.css" />
-<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet"href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/common.css" />
+	<link rel="stylesheet" href="css/codeManage.css" />
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
   <%@ include file="/WEB-INF/include/menus.jsp" %>
   
-	<div id="wrapper">
+	<div id="main">
 	<h1>공통코드 관리</h1>
 	<div id="searchBox">
 		<div class="search">
-			<span>코드 검색</span>
 			<form action="/codeSearch" method="post" name="searchForm">
-				<input class="form-control" type="text" name="code_info_type" placeholder="코드를 입력하세요." />
-				<input class="btn btn-outline-primary" type="button" value="코드검색" onclick="search()" />
+				<label for="code_info_type" class="col-sm-2 col-form-label">코드검색</label>
+				<input class="form-control" type="text" name="code_info_type" id="code_info_type" placeholder="코드를 입력하세요." />
+				<button class="btn btn-outline-primary" type="submit" onclick="search()" >코드검색</button>
 			</form>
 		</div>
 		<div id="searchResultBox">
-			<table id="resultTable" border="1" width="1000">
+			<table class="table">
 	  	    	<tr>
 	  	    		<th>코드유형</th>
 	  	    		<th>코드유형명</th>
@@ -116,7 +114,7 @@
 	       </div>
 	     </div>
 	     
-	     <div id="cd_list" class="card">
+	     <div id="code_info" class="card">
 	        <div class="card-body">
 	          <h3 class="card-title">코드 상세 정보</h3>
 	
@@ -132,6 +130,7 @@
 	              </tr>
 	            </thead>
 	            <tbody>
+	            <!-- list 5개만 나오게하고 페이징 처리 -->
 	            <c:choose>
 	                <c:when test="${codeList == null && voList != null}">
 	         	        <c:forEach items="${voList}" var="list"  varStatus="status">
@@ -141,7 +140,7 @@
 			                <td><c:out value="${list.code_info_type}" /></td>
 			                <td><c:out value="${list.code_info_nm}" /></td>
 			                <td>
-			                	<select id="use_select${status.count}" name="use_yn">
+			                	<select id="use_select${status.count}" class="form-select" name="use_yn">
 			                		<option value="Y">Y</option>
 			                		<option value="N">N</option>
 			                	</select>
@@ -165,8 +164,8 @@
 	          <!-- End Default Table Example -->
 	          <div id="button">
 		          <c:if test="${voList != null}">
-			          <input class="btn btn-outline-primary" type="button" onclick="code_add()" value="코드 추가" />
-			          <input class="btn btn-outline-primary" type="button" onclick="code_edit()" value="코드 수정" />
+			          <button class="btn btn-outline-primary" onclick="code_add()">코드 추가</button>
+			          <button class="btn btn-outline-warning" onclick="code_edit()">코드 수정</button>
 		          </c:if>
 	          </div>
 	        </div>

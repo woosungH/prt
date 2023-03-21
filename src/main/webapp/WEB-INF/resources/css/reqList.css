@@ -1,0 +1,60 @@
+@charset "UTF-8";
+
+/* common */
+form {
+	width : 1200px;
+	margin : 0 auto;
+	display : flex;
+}
+table {
+	width : 100%;
+}
+
+th {
+	text-align : center;
+}
+/* main */
+#main .table {
+	margin-bottom : 0;
+}
+#main .table th {
+	width : 150px;
+	vertical-align : middle;
+}
+#main .table tr:nth-child(1) td {
+	text-align : center;
+}
+#main .table tr:nth-child(1) td input{
+	width : 180px;
+	float : left;
+}
+#main .table tr:nth-child(1) td input:last-child{
+	width : 180px;
+	float : right;
+}
+#main .table tr:nth-child(1) span {
+	display : inline-block;
+	margin-top : 7px;
+}
+#main .table tr:nth-child(2) td div {
+	width : 30%;
+	display : inline-block;
+}
+#main .table tr:nth-child(2) td div:nth-child(2) {
+	margin : 0 43px;
+}
+#main .table tr:nth-child(4) td select {
+	width : 180px;
+	display : inline-block;
+	float : left;
+	margin-right : 20px;
+}
+#main .table tr:nth-child(4) td input {
+	width : 774px;
+	float : left;
+}
+#main form .btn {
+	border-radius : 0;
+	border-color : #dee2e6;
+	font-weight : bold;
+}

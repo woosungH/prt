@@ -5,7 +5,7 @@
 
 
   <div id="header">
-	<a href="/" id="title"><h1 id="gradtext">URMS</h1></a>
+	<a href="/" id="title"><span id="gradtext">URMS</span></a>
 		 <div id="namebox">
 		 	<ul>${ sessionScope.login.user_nm } 님, 환영합니다!</ul>
 		 	<br />

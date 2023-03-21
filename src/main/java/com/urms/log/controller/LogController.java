@@ -6,10 +6,12 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.urms.log.service.LogService;
 import com.urms.log.vo.UserVo;
@@ -28,7 +30,7 @@ public class LogController {
 	@RequestMapping("/loginProcess")
 	public  String   loginProcess(
 		HttpSession     session,
-		@RequestParam   HashMap<String, Object> map) {
+		@RequestParam   HashMap<String, Object> map, Model model) {
 		
 		String returnURL = "";
 		if( session.getAttribute("login") != null ) {
@@ -47,7 +49,6 @@ public class LogController {
 			}
 		} else {
 			returnURL = "redirect:/login";	 // 로그인 실패시
-			
 		}
 		return returnURL;	
 	}
@@ -74,4 +75,12 @@ public class LogController {
 	 * (String)session.getAttribute("id"); map.put("user_id", id);
 	 * logService.updateUser(map); return "redirect:/login"; }
 	 */
+	
+	@GetMapping("/logout")
+	public ModelAndView logout(HttpSession session) {
+		session.invalidate();
+		ModelAndView mav = new ModelAndView("redirect:/");
+		
+		return mav;
+	}
 }
