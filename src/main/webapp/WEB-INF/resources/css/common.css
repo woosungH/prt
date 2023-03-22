@@ -13,7 +13,7 @@ a,a:hover { text-decoration: none; }
 ul { list-style-type : none; }
 h1 {
 	display : inline-block;
-	margin-bottom : 20px;
+	margin-bottom : 30px;
 }
 
 /* gugi 폰트는 상단 로고용으로 사용함 */
@@ -28,8 +28,6 @@ h1 {
 		display : inline-block; 
 		padding : 10px;
  		margin  : 30px;
-  		font-family: 'Gugi', cursive;
-		
         background: #55ffaa;
         background: -webkit-linear-gradient(left, #55ff55, #29ffe8);
         background:    -moz-linear-gradient(right, #55ff55, #55ffff);
@@ -44,8 +42,9 @@ h1 {
 
 
 #main {
-	width: 1200px;
-	margin: 0 auto;
+	width : 1200px;
+	margin : 0 auto;
+	min-height : 800px; 
 }
 
 /* 메뉴바 */
@@ -126,23 +125,23 @@ h1 {
 /* 회원정보관리, 로그아웃 박스 */
 
 #namebox {
-	 font-family: 'Nanum Gothic', sans-serif;
-	 display: inline-block;
-	 float : right;
-	 font-weight : bold;
-	 border-radius: 30px;
-	 padding : 30px;
-	 margin : 20px;
-	 width  : 250px;
-	 height : 50px;
-	 background  : rgba(248,248,248);
-	 text-align : center;
-	 font-size : 15px;
+	font-family: 'Nanum Gothic', sans-serif;
+	display: inline-block;
+	float : right;
+	font-weight : bold;
+	border-radius: 30px;
+	padding : 20px;
+	margin : 20px;
+	width  : 250px;
+	height : 110px;
+	background  : rgba(248,248,248);
+	text-align : center;
+	font-size : 15px;
 }
 
 #namebox > a {
- text-decoration: none;
- color:gray;
+	text-decoration: none;
+	color:gray;
 }
 
 #namebox > a:hover {
@@ -151,9 +150,9 @@ h1 {
 }
 
 #namebox > ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+	margin: 0;
+	padding: 0;
+	list-style: none;
 	
 }
 
@@ -162,7 +161,8 @@ footer {
 	padding : 2em;
 	text-align : center;
 	color : gray;
-	font-size: 12px;
+	font-size : 12px;
+	border : 1px solid #e4e8eb;
 }
 
 /* 메뉴바 꽉차게, 양옆 공백 방지*/

@@ -60,10 +60,11 @@ function code_add() {
 	    insertTr += "<th scope='row'></th>";
 	    insertTr += "<td>"+trCount+"</td>";
 	    insertTr += "<td>"+code_info_type+"</td>";
-	    insertTr += "<td><input type='text' name='code_info_nm' placeholder='코드상세명을 입력하세요.' /></td>";
-	    insertTr += "<div class='btn-group' role='group'><td>";
-	    insertTr += "<input type='button' class='btn btn-outline-primary' onclick='reg()' value='등록' />";
-	    insertTr += "<input type='button' class='btn btn-outline-primary' value='삭제' onclick='del(this)' /></td></div></tr>";
+	    insertTr += "<td><input type='text' class='form-control' name='code_info_nm' placeholder='코드상세명을 입력하세요.' /></td>";
+	    insertTr += "<td><div id='btn_group'>";
+	    insertTr += "<button type='button' class='btn btn-outline-primary' onclick='reg()'>등록</button>";
+	    insertTr += "<button type='button' class='btn btn-outline-danger' onclick='del(this)'>삭제</button>";
+	    insertTr += "</div></td></tr>";
 	    
 	$('#codeList > tbody').append(insertTr);
 	

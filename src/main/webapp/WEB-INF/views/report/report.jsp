@@ -106,6 +106,7 @@
 		</c:forEach>				
 		</table>
 	</div>
+	<%@ include file="/WEB-INF/include/footer.jsp" %>
 <script>
 function sortTable(n){
 	var table, rows, switching, o, x, y, shouldSwitch, dir, switchcount = 0;

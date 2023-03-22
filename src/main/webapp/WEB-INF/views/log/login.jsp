@@ -5,12 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet"href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/common.css" />
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" />
+	<style>
+		a {text-decoration: none;}
+		#gradtext{
+			display : inline-block; 
+			padding : 10px;
+	        background: #55ffaa;
+	        background: -webkit-linear-gradient(left, #55ff55, #29ffe8);
+	        background:    -moz-linear-gradient(right, #55ff55, #55ffff);
+	        background:      -o-linear-gradient(right, #55ff55, #55ffff);
+	        background:         linear-gradient(to right, #55ff55, #55ffff);
+	        -webkit-background-clip: text;
+	                background-clip: text;
+	        color: transparent;
+	        font-size: 48px;
+	        font-weight: bold;
+		}
+	</style>
 </head>
-
 <body>
 	<div id="main">
 
@@ -69,28 +82,29 @@
 
     </div>
 	</div>
-	<script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
 		function login() {
 			var form = document.loginForm;
-			
+						
 			if (form.user_id.value == "") {
-	          	alert("아이디를 입력 해야 합니다!");
-	          	form.user_id.focus();//포커스를 Password박스로 이동.
-	         	return;
-		    }
+				alert("아이디를 입력 해야 합니다!");
+				form.user_id.focus();//포커스를 Password박스로 이동.
+				return;
+			}
 			if (form.user_pw.value == "") {
-		        alert("패스워드를 입력 해야 합니다!");
-		        form.user_pw.focus();//포커스를 Password박스로 이동.
-		        return;
-		    }
-		
+				alert("패스워드를 입력 해야 합니다!");
+				form.user_pw.focus();//포커스를 Password박스로 이동.
+				return;
+			}
+					
 			form.submit();
-			
+						
 			/* 로그인 실패 시 해당 메시지 나오게 설정 */
-/* 			var insert;
+			/* var insert;
 			if (${msg} != "") {
-				insert += "<div class='log_fail'>등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.</div>"
-				documnet.getElementById("btn").before(insert);
+			insert += "<div class='log_fail'>등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.</div>"
+			documnet.getElementById("btn").before(insert);
 			} */
 		}
 	</script>

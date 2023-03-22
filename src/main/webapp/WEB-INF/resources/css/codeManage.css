@@ -21,6 +21,9 @@
  #searchBox > .search form {
  	display : flex;
  }
+ #searchBox > .search .btn {
+ 	width : 100px;
+ }
  #searchBox > .search .form-control {
  	width : 500px;
  	margin-right : 20px;
@@ -56,14 +59,23 @@
   #code_info .noneList {
  	height: 50px;
  }
-  #code_info #button input {
- 	float : right;
- 	margin : 10px 0 10px 10px;
+  #code_info #button {
+ 	margin : 10px 0;
+ 	display : flex;
+ 	justify-content : flex-end;
+  }
+  #code_info #button .btn {
+ 	margin-left : 10px;
  }
  
-  #code_info #insertTr > td {
- 	padding-top : 12px;
+  #code_info #insertTr > td:nth-child(2),
+  #code_info #insertTr > td:nth-child(3) {
+ 	line-height : 35px;
  }
-  #code_info #insertTr > td:last-child {
- 	padding-top : 8px;
- }
+   #code_info #insertTr #btn_group {
+   	display : flex;
+   	justify-content : center;
+   }
+   #code_info #insertTr #btn_group .btn{
+   	margin : 0 10px;
+   }

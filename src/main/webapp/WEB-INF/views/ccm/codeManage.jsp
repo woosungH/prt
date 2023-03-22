@@ -23,7 +23,7 @@
 			<form action="/codeSearch" method="post" name="searchForm">
 				<label for="code_info_type" class="col-sm-2 col-form-label">코드검색</label>
 				<input class="form-control" type="text" name="code_info_type" id="code_info_type" placeholder="코드를 입력하세요." />
-				<button class="btn btn-outline-primary" type="submit" onclick="search()" >코드검색</button>
+				<button class="btn btn-outline-primary" type="button" onclick="search()" >코드검색</button>
 			</form>
 		</div>
 		<div id="searchResultBox">
@@ -164,14 +164,15 @@
 	          <!-- End Default Table Example -->
 	          <div id="button">
 		          <c:if test="${voList != null}">
-			          <button class="btn btn-outline-primary" onclick="code_add()">코드 추가</button>
 			          <button class="btn btn-outline-warning" onclick="code_edit()">코드 수정</button>
+			          <button class="btn btn-outline-primary" onclick="code_add()">코드 추가</button>
 		          </c:if>
 	          </div>
 	        </div>
 	      </div>
     </section>
     </div>
+    <%@ include file="/WEB-INF/include/footer.jsp" %>
 <script type="text/javascript" src="js/codeManage.js"></script>
 </body>
 </html>

@@ -116,6 +116,7 @@
 	</div>
 	<!-- mapper 검색어 처리 및 페이징 처리 한번에  -->
 	<!-- List 나오고 테이블의 각 제목들 옆에 정렬 아이콘 두고 누르면 정렬 바뀌게 설정 -->
+	<%@ include file="/WEB-INF/include/footer.jsp" %>
 <script type="text/javascript" src="js/reqList.js"></script>
 </body>
 </html>
