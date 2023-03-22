@@ -6,8 +6,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <!-- Template Main CSS File -->
-<link rel="stylesheet"href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/common.css" />
+<link rel="stylesheet"href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css" />
 <link rel="stylesheet" href="/css/report.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
@@ -45,9 +45,9 @@
 	<div id="main">
 		<h1>요청처리 보고서</h1>
 		<form name="form1" action="/poiExcel?searchYtype=${map.searchYtype}&&searchMtype=${map.searchMtype}" method="post">
-			<div id="down"><input type="submit" class="btn btn-outline-success" value="다운로드"/></div>
+		<div id="down"><input type="submit" class="btn btn-outline-success" value="다운로드"/></div>
 		</form>
-		<form action="/report/search" method="GET">
+		<form action="/report/search" method="post">
 		<div id="searchBox">	
 			<select name="searchYtype" id="searchYtype">
 			<option value="">==선택==</option>
@@ -70,9 +70,10 @@
 			<option value="-12">12월</option>
 			</select>
 			<input type="hidden" id ="mon" value="${searchMtype }"/>
-			<div id="search"><input type="submit" class="btn btn-outline-secondary" value="조회"/></div>
+			<div id="search"><input type="submit" id="search-button" class="btn btn-outline-secondary" value="조회"/></div>
 		</div>
 		</form>
+
 		<table id="board1" class="table">
 			<tr>
 				<th class="sortTable_8">순번</th>
@@ -94,14 +95,7 @@
 				<td class="td1">${ req.req_dttm }</td>
 				<td class="td1">${ req.req_end_dttm }</td>
 				<td class="td1">${ req.result_reg_dttm }</td>
-				<c:choose>
-				<c:when test="${ req.req_end_dttm le req.result_reg_dttm}">
-				<td>o</td>
-				</c:when>
-				<c:otherwise>
-				<td>x</td>
-				</c:otherwise>
-				</c:choose>
+				<td class="td1">${ ok }</td>
 			</tr>
 		</c:forEach>				
 		</table>

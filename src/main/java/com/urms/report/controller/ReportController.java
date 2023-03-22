@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -30,36 +31,44 @@ public class ReportController {
 		ModelAndView mv = new ModelAndView();
 		String searchYtype = (String)map.get("searchYtype");
 		String searchMtype = (String)map.get("searchMtype");
-		if(map.size() > 0) {
-			mv.addObject("report",map.get("report1"));
-		}else {
-			mv.addObject("report",reqVo);
-		}
+		mv.addObject("report",reqVo);
 		mv.addObject("searchYtype",searchYtype);
 		mv.addObject("searchMtype",searchMtype);
-		System.out.println(" map :" +map);
-		System.out.println(" searchYtype :" +(String)map.get("searchYtype"));
-		System.out.println(" searchMtype :" +(String)map.get("searchMtype"));
+		String o = "o";
+		String x = "x";
+		for(ReqVo vo : reqVo) {
+			if(vo.getReq_end_dttm().compareTo(vo.getResult_reg_dttm()) == 1 || vo.getReq_end_dttm().compareTo(vo.getResult_reg_dttm()) == 0) {
+				mv.addObject("ok",o);
+			}else {
+				mv.addObject("ok",x);
+			}
+		}
 		mv.setViewName("report/report");
 		return mv;
 	}
 	
-	@RequestMapping("/report/search")
+	@RequestMapping(value="/report/search",method=RequestMethod.POST)
 	public ModelAndView reportSearch(
 			HttpSession Session,
-			@RequestParam HashMap<String, Object> map,
-			RedirectAttributes redirectAttributes) {
+			@RequestParam HashMap<String, Object> map) {
 		List<ReqVo> reqVo = reqService.search(map);
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("report",reqVo);
-		mv.addObject("map",map);
 		String searchYtype = (String)map.get("searchYtype");
 		String searchMtype = (String)map.get("searchMtype");
-		redirectAttributes.addAttribute("report1", reqVo);
-		System.out.println("red map :" +map);
-		System.out.println("red searchYtype :" +(String)map.get("searchYtype"));
-		System.out.println("red searchMtype :" +(String)map.get("searchMtype"));
-		mv.setViewName("redirect:/report?searchYtype="+searchYtype+"&searchMtype="+searchMtype);
+		mv.addObject("report",reqVo);
+		mv.addObject("map",map);
+		mv.addObject("searchYtype",searchYtype);
+		mv.addObject("searchMtype",searchMtype);
+		String o = "o";
+		String x = "x";
+		for(ReqVo vo : reqVo) {
+			if(vo.getReq_end_dttm().compareTo(vo.getResult_reg_dttm()) == 1 || vo.getReq_end_dttm().compareTo(vo.getResult_reg_dttm()) == 0) {
+				mv.addObject("ok",o);
+			}else {
+				mv.addObject("ok",x);
+			}
+		}
+		mv.setViewName("report/report");
 		return mv;
 	}
 	

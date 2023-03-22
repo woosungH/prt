@@ -6,9 +6,9 @@
 <meta charset="utf-8">
 <title>URMS 유지보수 현황</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet"href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/common.css" />
-<link rel="stylesheet" href="css/home.css" />
+<link rel="stylesheet"href="/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/common.css" />
+<link rel="stylesheet" href="/css/home.css" />
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>

@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@taglib  prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<link rel="stylesheet"href="css/bootstrap.min.css" />
-	<link rel="stylesheet" href="css/common.css" />
-	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-	<script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
+	<link rel="stylesheet"href="/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="/css/common.css" />
 </head>
 
 <body>
@@ -69,6 +68,8 @@
 
     </div>
 	</div>
+	<script type="text/javascript" src="/js/bootstrap.bundle.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 	<script>
 		function login() {
 			var form = document.loginForm;
