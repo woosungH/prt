@@ -24,6 +24,7 @@ public class RliServiceImpl implements RliService{
 	
 	@Override
 	public List<RliVo> search(HashMap<String, String> searchInfo) {
+		System.out.println("Service Impl : "+searchInfo);
 		return rliDao.search(searchInfo);
 	}
 

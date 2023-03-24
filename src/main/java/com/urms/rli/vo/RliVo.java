@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class RliVo {
 
-	/* 검색 조건 관련 변수 */
+	/* 요청 리스트 관련 변수 */
 	private String clear_now; // 진행상태
 	private String sys_info_nm; // 상세시스템명
 	private String req_type; // 요청유형
@@ -12,8 +12,9 @@ public class RliVo {
 	private String user_id; // 작업자명
 	private String req_title; // 제목
 	private String req_con; // 내용
-	private Timestamp req_dttm; // 요청일
-	private Timestamp result_reg_dttm; // 작업완료일
+	private String req_no; // 요청번호
+	private String req_dttm; // 요청일
+	private String result_reg_dttm; // 작업완료일
 	
 	/* 프로젝트 관련 변수 */
 	private String sys_nm;
@@ -63,16 +64,16 @@ public class RliVo {
 	public void setReq_con(String req_con) {
 		this.req_con = req_con;
 	}
-	public Timestamp getReq_dttm() {
+	public String getReq_dttm() {
 		return req_dttm;
 	}
-	public void setReq_dttm(Timestamp req_dttm) {
+	public void setReq_dttm(String req_dttm) {
 		this.req_dttm = req_dttm;
 	}
-	public Timestamp getResult_reg_dttm() {
+	public String getResult_reg_dttm() {
 		return result_reg_dttm;
 	}
-	public void setResult_reg_dttm(Timestamp result_reg_dttm) {
+	public void setResult_reg_dttm(String result_reg_dttm) {
 		this.result_reg_dttm = result_reg_dttm;
 	}
 	public String getSys_nm() {
@@ -93,6 +94,12 @@ public class RliVo {
 	public void setSys_info_use(String sys_info_use) {
 		this.sys_info_use = sys_info_use;
 	}
+	public String getReq_no() {
+		return req_no;
+	}
+	public void setReq_no(String req_no) {
+		this.req_no = req_no;
+	}
 	
 	/* Constructor */
 	public RliVo() {
@@ -107,8 +114,8 @@ public class RliVo {
 		this.sys_info_use = sys_info_use;
 	}
 	
-	public RliVo(String clear_now, String sys_info_nm, String req_type, String req_nm, String user_id,
-			String req_title, String req_con, Timestamp req_dttm, Timestamp result_reg_dttm) {
+	public RliVo(String clear_now, String sys_info_nm, String req_type, String req_nm, String user_id, String req_title,
+			String req_con, String req_no, String req_dttm, String result_reg_dttm) {
 		super();
 		this.clear_now = clear_now;
 		this.sys_info_nm = sys_info_nm;
@@ -117,6 +124,7 @@ public class RliVo {
 		this.user_id = user_id;
 		this.req_title = req_title;
 		this.req_con = req_con;
+		this.req_no = req_no;
 		this.req_dttm = req_dttm;
 		this.result_reg_dttm = result_reg_dttm;
 	}
@@ -124,9 +132,10 @@ public class RliVo {
 	/* toString */
 	@Override
 	public String toString() {
-		return "RliVo [clear_now=" + clear_now + ", sys_info_nm=" + sys_info_nm + ", req_type="
-				+ req_type + ", req_nm=" + req_nm + ", user_id=" + user_id + ", req_title=" + req_title + ", req_con="
-				+ req_con + ", req_dttm=" + req_dttm + ", result_reg_dttm=" + result_reg_dttm + ", sys_nm=" + sys_nm
+		return "RliVo [clear_now=" + clear_now + ", sys_info_nm=" + sys_info_nm + ", req_type=" + req_type + ", req_nm="
+				+ req_nm + ", user_id=" + user_id + ", req_title=" + req_title + ", req_con=" + req_con + ", req_no="
+				+ req_no + ", req_dttm=" + req_dttm + ", result_reg_dttm=" + result_reg_dttm + ", sys_nm=" + sys_nm
 				+ ", sys_use=" + sys_use + ", sys_info_use=" + sys_info_use + "]";
 	}
+	
 }

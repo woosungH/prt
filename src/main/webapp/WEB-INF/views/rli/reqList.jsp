@@ -9,8 +9,8 @@
 <title>Insert title here</title>
 <!-- Template Main CSS File -->
 <link rel="stylesheet"href="css/bootstrap.min.css">
-<link rel="stylesheet" href="css/common.css" />
 <link rel="stylesheet" href="css/reqList.css" />
+<link rel="stylesheet" href="css/common.css" />
 <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
 <script type="text/javascript" src="js/bootstrap.bundle.min.js"></script>
 </head>
@@ -19,7 +19,7 @@
 	
 	<div id="main">
 
-		<h1>요청 조회</h1>
+		<h1>요청 목록</h1>
 	
 		<form action="/reqSearch" method="post">
 			<table class="table table-bordered">
@@ -113,9 +113,43 @@
 			</table>
 			<button type="submit" class="btn btn-outline-secondary">조회</button>
 		</form>
-	</div>
 	<!-- mapper 검색어 처리 및 페이징 처리 한번에  -->
 	<!-- List 나오고 테이블의 각 제목들 옆에 정렬 아이콘 두고 누르면 정렬 바뀌게 설정 -->
+
+		<section id="req_list">
+			<div class="list_count">
+				<span>총 <b><c:out value="${fn:length(reqList)}" /></b>건 검색</span>
+			</div>
+			<table class="table">
+				<tr>
+					<th>순번</th>
+					<th>시스템명</th>
+					<th>요청유형</th>
+					<th>제목</th>
+					<th>요청자</th>
+					<th>작업자</th>
+					<th>요청일</th>
+					<th>진행상태</th>
+					<th>작업완료일</th>
+				</tr>
+				<c:forEach items="${reqList}" var="list" varStatus="status">
+					<tr>
+						<td><c:out value="${status.count}" /></td>
+						<td><c:out value="${list.sys_info_nm}" /></td>
+						<td><c:out value="${list.req_type}" /></td>
+						<td><a href="<c:out value="${list.req_no}" />"><c:out value="${list.req_title}" /></a></td>
+						<td><c:out value="${list.req_nm}" /></td>
+						<td><c:out value="${list.user_id}" /></td>
+						<td><c:out value="${list.req_dttm}" /></td>
+						<td><c:out value="${list.clear_now}" /></td>
+						<td><c:out value="${list.result_reg_dttm}" /></td>
+					</tr>
+				</c:forEach>
+			</table>
+		</section>		
+		
+	</div>
+
 	<%@ include file="/WEB-INF/include/footer.jsp" %>
 <script type="text/javascript" src="js/reqList.js"></script>
 </body>

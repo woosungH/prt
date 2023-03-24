@@ -39,7 +39,7 @@ var prjChange = function(value) {
 				$('#sys_nm').append("<option value='all'>전체</option>");
 				$('#sys_info_nm').append("<option value='all'>전체</option>");
 				for(var i=0; i<sysArr.length; i++){
-					$('#sys_nm').append("<option value='sysArr[i]'>"+sysArr[i]+"</option>");
+					$('#sys_nm').append("<option value="+sysArr[i]+">"+sysArr[i]+"</option>");
 				}
 			}
 		}
@@ -87,7 +87,7 @@ var sysChange = function(value) {
 			} else {
 				$('#sys_info_nm').append("<option value='all'>전체</option>");
 				for(var i=0; i<sysInfoArr.length; i++){
-					$('#sys_info_nm').append("<option value='sysInfoArr[i]'>"+sysInfoArr[i]+"</option>");
+					$('#sys_info_nm').append("<option value="+sysInfoArr[i]+">"+sysInfoArr[i]+"</option>");
 				}
 			}
 		}

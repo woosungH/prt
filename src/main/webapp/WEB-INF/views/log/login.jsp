@@ -22,6 +22,11 @@
 	        font-size: 48px;
 	        font-weight: bold;
 		}
+		.log_fail {
+			color : red;
+			font-size : 14px;
+			margin-bottom : 10px;
+		}
 	</style>
 </head>
 <body>
@@ -51,21 +56,21 @@
                   <form action="/loginProcess" method="POST" name="loginForm" class="row g-3 needs-validation">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
+                      <label for="yourUsername" class="form-label">아이디</label>
                       <div class="input-group has-validation">
-                        <input type="text" name="user_id" class="form-control" id="yourUsername" required>
+                        <input type="text" name="user_id" class="form-control" id="user_id" required>
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="user_pw" class="form-control" id="yourPassword" required>
+                      <label for="yourPassword" class="form-label">비밀번호</label>
+                      <input type="password" name="user_pw" class="form-control" id="user_pw" required>
                     </div>
 
                     <div class="col-12">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                        <label class="form-check-label" for="rememberMe">아이디 저장</label>
+                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="remember">
                       </div>
                     </div>
                     <div class="col-12" id="btn">
@@ -83,6 +88,7 @@
     </div>
 	</div>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script type="text/javascript">
 		function login() {
 			var form = document.loginForm;
@@ -100,13 +106,23 @@
 					
 			form.submit();
 						
-			/* 로그인 실패 시 해당 메시지 나오게 설정 */
-			/* var insert;
-			if (${msg} != "") {
-			insert += "<div class='log_fail'>등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.</div>"
-			documnet.getElementById("btn").before(insert);
-			} */
 		}
+		
+		$(function(){
+		    $('#user_id').attr('value',$.cookie("remember"));
+		    if ($.cookie("remember") != null) {
+				$('#remember').prop("checked", true);
+			}
+		    
+		    var URLSearch = new URLSearchParams(location.search);
+		    
+			/* 로그인 실패 시 해당 메시지 나오게 설정 */
+			
+			if (URLSearch.get('login') == "fail") {
+				var insert = "<div class='log_fail'>등록되지 않은 아이디이거나 아이디 또는 비밀번호를 잘못 입력했습니다.</div>";
+				$('#btn').prepend(insert);
+			}
+		});
 	</script>
 </body>
 </html>

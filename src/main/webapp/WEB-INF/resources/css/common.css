@@ -15,7 +15,12 @@ h1 {
 	display : inline-block;
 	margin-bottom : 30px;
 }
-
+tr { border : 1px solid #e4e8eb; }
+th { background : #F6F6F6 ; }
+tr, td, th {
+	padding : 10px;
+	text-align : center;
+}
 /* gugi 폰트는 상단 로고용으로 사용함 */
 #title {
 	 text-decoration:none; color:black;

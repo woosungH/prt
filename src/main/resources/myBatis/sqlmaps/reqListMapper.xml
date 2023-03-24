@@ -2,28 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="rli">
     
+    <sql id="select">
+        SELECT B.CLEAR_NOW,
+			   A.SYS_INFO_NM,
+			   A.REQ_NO,
+			   A.REQ_TYPE,
+			   A.REQ_NM,
+			   B.USER_ID,
+			   A.REQ_TITLE,
+			   A.REQ_CON,
+			   TO_CHAR(A.REQ_DTTM,'YYYY-MM-DD') AS req_dttm,
+			   TO_CHAR(C.RESULT_REG_DTTM,'YYYY-MM-DD') AS result_reg_dttm
+		  FROM SR_REQ A
+		  JOIN SR_CLEAR B
+		    ON A.REQ_ID = B.REQ_ID
+		  JOIN SR_RESULT C
+		    ON B.CLEAR_ID = C.CLEAR_ID
+    </sql>
+    
     <!-- 요청일 -->
     <sql id="req_date">
-    	<if test="req_start != null and req_end == null">
-    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') >= #{req_start}]]>
-    	</if>
-    	<if test="req_start == null and req_end != null">
-    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') <= #{req_end}]]>
-    	</if>
-    	<if test="req_start != null and req_end != null">
-			A.REQ_DTTM BETWEEN #{req_start} AND #{req_end}
-    	</if>
+        <choose>
+	    	<when test='req_start != null and req_end == null'>
+	    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') >= #{req_start}]]>
+	    	</when>
+	    	<when test='req_start == null and req_end != null'>
+	    		<![CDATA[DATE_FORMAT(A.REQ_DTTM,'%Y-%m-%d') <= #{req_end}]]>
+	    	</when>
+	    	<when test='req_start != null and req_end != null'>
+				A.REQ_DTTM BETWEEN #{req_start} AND #{req_end}
+	    	</when>
+        </choose>
     </sql>
     
     <!-- 작업완료일 -->
     <sql id="res_date">
-    	<if test="res_start != null and res_end == null">
+    	<if test='res_start != null and res_end == null'>
     		<![CDATA[DATE_FORMAT(C.RESULT_REG_DTTM,'%Y-%m-%d') >= #{res_start}]]>
     	</if>
-    	<if test="res_start == null and res_end != null">
+    	<if test='res_start == null and res_end != null'>
     		<![CDATA[DATE_FORMAT(C.RESULT_REG_DTTM,'%Y-%m-%d') <= #{res_end}]]>
     	</if>
-    	<if test="res_start != null and res_end != null">
+    	<if test='res_start != null and res_end != null'>
 			C.RESULT_REG_DTTM BETWEEN #{res_start} AND #{res_end}
     	</if>
     </sql>
@@ -45,72 +65,66 @@
     
     <!-- 검색어 조건 -->
     <sql id="search_opt">
-    	<if test="search_opt == 'all'">
-    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%')
-    		OR
-    		A.REQ_CON LIKE CONCAT('%',#{text},'%')
-    		OR
-    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
-    		OR
-    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
-    	</if>
-    	<if test="search_opt == 'req_title'">
-    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%') 
-    	</if>
-    	<if test="search_opt == 'req_con'">
-    		A.REQ_CON LIKE CONCAT('%',#{text},'%') 
-    	</if>
-    	<if test="search_opt == 'req_nm'">
-    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
-    	</if>
-    	<if test="search_opt == 'user_id'">
-    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
-    	</if>
+        <choose>
+            <when test='search_opt != null and "search_opt.equals(all)"'>
+	    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%')
+	    		OR
+	    		A.REQ_CON LIKE CONCAT('%',#{text},'%')
+	    		OR
+	    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
+	    		OR
+	    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
+            </when>
+            <when test='search_opt != null and "search_opt.equals(req_title)"'>
+	    		A.REQ_TITLE LIKE CONCAT('%',#{text},'%') 
+            </when>
+            <when test='search_opt != null and "search_opt.equals(req_con)"'>
+	    		A.REQ_CON LIKE CONCAT('%',#{text},'%') 
+            </when>
+            <when test='search_opt != null and "search_opt.equals(req_nm)"'>
+	    		A.REQ_NM LIKE CONCAT('%',#{text},'%') 
+            </when>
+            <when test='search_opt != null and "search_opt.equals(user_id)"'>
+	    		B.USER_ID LIKE CONCAT('%',#{text},'%') 
+            </when>
+        </choose>
     </sql>
     
     <!-- 시스템명 -->
     <sql id="sys_nm">
-    	<if test="sys_nm != all || sys_nm != null">
+    	<if test='sys_nm != null and "sys_nm.equals(all)"'>
 	   		AND A.SYS_NM LIKE CONCAT('%',#{sys_nm},'%') 
     	</if>
     </sql>
+    
+	<select id="getReq"
+        resultType="com.urms.rli.vo.RliVo">
+        <include refid="select" />
+        ORDER BY A.REQ_DTTM DESC; 
+    </select>
     
 	<select id="getList"
         resultType="com.urms.rli.vo.RliVo"
         parameterType="java.util.HashMap">
         
-		SELECT B.CLEAR_NOW,
-			   A.SYS_INFO_NM,
-			   A.REQ_TYPE,
-			   A.REQ_NM,
-			   B.USER_ID,
-			   A.REQ_TITLE,
-			   A.REQ_CON,
-			   A.REQ_DTTM,
-			   C.RESULT_REG_DTTM
-		  FROM SR_REQ A, SR_CLEAR B, SR_RESULT C
-		 <where>
-		        A.REQ_ID = B.REQ_ID
-		   AND  B.CLEAR_ID = C.CLEAR_ID
-			<if test="clear_now != null or clear_now != all">
-				AND <include refid="clear_now" />
-			</if>
-			<if test="sys_info_nm != null or sys_info_nm != all">
-				AND <include refid="sys_info_nm" />
-			</if>
-			<if test="req_type != null or req_type != all">
-				AND <include refid="req_type" />
-			</if>
-			<if test="search_opt != null">
-				AND <include refid="search_opt" />
-			</if>
-			<if test="req_start != null or req_end != null">
+		<include refid="select" />
+		
+		 WHERE <include refid="search_opt" />
+			<if test='req_start != null and req_end != null'>
 				AND <include refid="req_date" />
 			</if>
-			<if test="res_start != null or res_end != null">
+			<if test='res_start != null and res_end != null'>
 				AND <include refid="res_date" />
 			</if>
-		</where> 
+			<if test='sys_info_nm != null and sys_info_nm != "all"'>
+				AND <include refid="sys_info_nm" />
+			</if>
+			<if test='req_type != null and req_type != "all"'>
+				AND <include refid="req_type" />
+			</if>
+			<if test='clear_now != null and clear_now != "all"'>
+				AND <include refid="clear_now" />
+			</if>
     </select>
 	
 	<select id="getSysList"
@@ -125,18 +139,10 @@
 		    ON A.SYS_NM = B.SYS_NM
 		 WHERE A.USE_YN = "Y"
 		   AND B.USE_YN = "Y"
-		   <if test="prj_nm != 'all' || prj_nm != null">
+		   <if test='"prj_nm.equals(all)" or prj_nm != null'>
 		   AND A.PRJ_NM LIKE CONCAT('%',#{prj_nm},'%') 
 		   <include refid="sys_nm" />
 		   </if>
-<!-- 	   <choose>
-	    	<when test="prj_nm != 'all' || prj_nm != null">
-	    		AND A.PRJ_NM LIKE CONCAT('%',#{prj_nm},'%') 
-	    	</when>
-	    	<when test="sys_nm != 'all' || sys_nm != null">
-	    		AND A.SYS_NM LIKE CONCAT('%',#{sys_nm},'%') 
-	    	</when>
-    	</choose> -->
 	</select>
 	
 </mapper>

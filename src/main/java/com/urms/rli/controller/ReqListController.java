@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urms.ccm.service.CcmService;
 import com.urms.ccm.vo.CcmVo;
 import com.urms.rli.service.RliService;
@@ -74,18 +73,17 @@ public class ReqListController {
 	@RequestMapping(value = "/reqSearch", method = RequestMethod.POST)
 	public ModelAndView reqSearch(@RequestParam HashMap<String, String> searchInfo) {
 
-		System.out.println(searchInfo);
-		
-		List<RliVo> searchList = rliservice.search(searchInfo);
+		System.out.println("controller : "+searchInfo);
+		List<RliVo> reqList = rliservice.search(searchInfo);
 		List<CcmVo> codeList = ccmService.codeList();
 		
 		ModelAndView mav = new ModelAndView(); 
 		mav.addObject("codeList", codeList); 
-		mav.addObject("searchList",	searchList); 
+		mav.addObject("reqList", reqList); 
 		mav.addObject("searchInfo",	searchInfo); 
 		mav.setViewName("rli/reqList");
 		 
-		System.out.println(searchList);
+		System.out.println(reqList);
 		 
 		return mav;
 	}

@@ -12,8 +12,8 @@
             TO_CHAR(MOD_DTTM, 'YYYY-MM-DD HH24:MI:SS') MOD_DTTM,
 			USE_YN
       FROM  USER
-      WHERE USER_ID = #{user_id}
-      AND   USER_PW = #{user_pw}    
+      WHERE BINARY USER_ID = #{user_id}
+      AND   USER_PW = #{user_pw}
     
     </select>
     

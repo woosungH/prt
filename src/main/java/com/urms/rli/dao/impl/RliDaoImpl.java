@@ -18,11 +18,12 @@ public class RliDaoImpl implements RliDao{
 	
 	@Override
 	public List<RliVo> list() {
-		return sql.selectList("rli.getList");
+		return sql.selectList("rli.getReq");
 	}
 	
 	@Override
 	public List<RliVo> search(HashMap<String, String> searchInfo) {
+		System.out.println("Dao Impl : "+searchInfo);
 		return sql.selectList("rli.getList",searchInfo);
 	}
 
