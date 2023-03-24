@@ -41,7 +41,7 @@
 </head>
 
 <body>	
-		<%@ include file="/WEB-INF/include/menus.jsp" %>
+   <%@ include file="/WEB-INF/include/menus.jsp" %>
 	<div id="main">
 		<h1>요청처리 보고서</h1>
 		<form name="form1" action="/poiExcel?searchYtype=${map.searchYtype}&&searchMtype=${map.searchMtype}" method="post">
