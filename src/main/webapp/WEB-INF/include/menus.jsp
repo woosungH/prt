@@ -24,7 +24,7 @@
 		 <a href="/reqList">요청 목록</a>
 	    </li>
 	     <li>
-		 <a href="#">요청 등록</a>
+		 <a href="/reqReg">요청 등록</a>
 	    </li>
 	    <li>
 		 <a href="/codeManage">시스템관리</a> <!-- 메뉴 마우스 오버 시 하단으로 세부 메뉴 나오게 설정 -->

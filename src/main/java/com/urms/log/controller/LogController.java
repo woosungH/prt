@@ -42,6 +42,8 @@ public class LogController {
 		if (vo !=null) {
 			session.setAttribute("login", vo);
 			session.setAttribute("id", vo.getUser_id());
+			session.setAttribute("user_nm", vo.getUser_nm());
+			session.setAttribute("user_type", vo.getUser_type());
 			System.out.println(session.getAttribute("login"));
 			if(vo.getMod_dttm() == null || vo.getMod_dttm().equals("")) {
 				returnURL = "log/userMod";       // 최초로그인

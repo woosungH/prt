@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="reqReg">
+
+<insert id="reqRegSubmit">
+INSERT INTO SR_REQ(REQ_ID, REQ_TITLE, REQ_DTTM, REQ_END_DTTM, REG_DTTM, REQ_TYPE, REG_NM, REQ_NM, SYS_INFO_NM)
+		VALUES((SELECT IFNULL(MAX(REQ_ID) +1,1)FROM SR_REQ as sr) ,#{req_title}, #{req_start}, #{req_end},
+				now(), #{req_type}, #{user_nm}, #{req_nm}, #{sys_info_nm})
+</insert>
+
+</mapper>

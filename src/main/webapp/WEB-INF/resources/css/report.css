@@ -7,9 +7,8 @@
  }
 #searchBox{
 	text-align: center;
-	padding-left: 800px;
+	padding-left: 940px;
 	display : flex;
-	justify-content : space-between;
 }
 .sortTable_7,.sortTable_8{width:8%;}
 
